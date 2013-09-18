@@ -1,0 +1,5 @@
+BSLC-Line clipping by cohen-sutheland line clipping method
+DB-Bresenham and DDA line generation alogorithm
+Polyfill-Boundary Fill Algorithm
+BFILL-Boundary fill
+Circle-circle generation algorithm
