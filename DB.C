@@ -1,0 +1,129 @@
+#include<stdio.h>
+#include<graphics.h>
+#include<conio.h>
+#include<math.h>
+void DDA(int x1,int y1,int x2,int y2);
+void BresenhamLine(int x1,int y1,int x2,int y2);
+void main()
+{
+	int gm=DETECT,gd;
+	initgraph(&gm,&gd,"C:\\TC\\BGI");
+	DDA(100,100,200,100);
+	DDA(200,100,200,200);
+	DDA(200,200,100,200);
+	DDA(100,200,1000,100);
+	BresenhamLine(100,100,150,10);
+	BresenhamLine(133,133,150,10);
+	BresenhamLine(200,100,150,10);
+	BresenhamLine(233,133,150,10);
+	DDA(133,133,233,133);
+	DDA(233,133,233,233);
+	DDA(233,233,133,233);
+	DDA(133,233,133,133);
+	BresenhamLine(100,100,133,133);
+	BresenhamLine(100,200,133,233);
+	BresenhamLine(200,100,233,133);
+	BresenhamLine(200,200,233,233);
+	getch();
+	closegraph();
+}
+void DDA(int x1,int y1,int x2,int y2)
+{
+	float ix,iy,x,y,max,dx,dy,count;
+	dx=abs(x2-x1);
+	dy=abs(y2-y1);
+	if(dx>dy)
+	{
+		max=dx;
+	}
+	else
+	{
+		max=dy;
+	}
+	ix=(x2-x1)/max;
+	iy=(y2-y1)/max;
+	for(count=0,x=x1+0.5,y=y1+0.5;count<max;count++)
+	{
+		putpixel(x,y,15);
+		x=x+ix;
+		y=y+iy;
+	}
+}
+void BresenhamLine(int x1,int y1,int x2,int y2)
+{
+int dx,dy,temp,mode=0,mode1=0,count,p,x,y;
+dx=abs(x2-x1);
+dy=abs(y2-y1);
+if(dy>dx)
+ {
+ temp=y1;
+ y1=x1;
+ x1=temp;
+ temp=y2;
+ y2=x2;
+ x2=temp;
+ mode=1;
+ temp=dy;
+ dy=dx;
+ dx=temp;
+ }
+if(x2<x1)
+ {
+ temp=x2;
+ x2=x1;
+ x1=temp;
+ temp=y2;
+ y2=y1;
+ y1=temp;
+ }
+if(y2<y1)
+ {
+ y2=y1+dy;
+ mode1=1;
+ }
+for(count=0,x=x1,y=y1;count<=dx;count++,x++)
+ {
+ //printf("\nx=%d    y=%d   dx=%d  dy=%d   p=%d    %d",x,y,dx,dy,p,count);
+ if(mode==0)
+ {
+ if(mode1==0)
+ putpixel(x,y,15);
+ else if(mode1==1)
+ putpixel(x,y1-(y-y1),15);
+ }
+ else if(mode==1)
+ {
+ if(mode1==0)
+  {
+  putpixel(y,x,15);
+  }
+ else if(mode1==1)
+  {
+  putpixel(y1-(y-y1),x,15);
+  }
+ }
+ if(count==0)
+  {
+  p=2*dy-dx;
+  }
+ else
+  {
+  if(p>0)
+   {
+   p=p+2*(dy-dx);
+   }
+  else
+   {
+   p=p+2*dy;
+   }
+  }
+ if(p>0)
+  {
+  y=y+1;
+  }
+ else
+  {
+  y=y;
+  }
+ }
+}
