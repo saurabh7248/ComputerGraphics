@@ -3,3 +3,4 @@ DB-Bresenham and DDA line generation alogorithm
 Polyfill-Boundary Fill Algorithm
 BFILL-Boundary fill
 Circle-circle generation algorithm
+Polyclip-Polygon clipping using sutherland-hodegeman algorithm

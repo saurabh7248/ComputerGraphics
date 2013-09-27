@@ -61,6 +61,7 @@ void main()
 	getch();
 	cleardevice();
 	SHPC();
+	cleardevice();
 	current=vertices[0];
     do
 	{
@@ -102,6 +103,20 @@ void SHPC()
 		}while(current!=vertices[0]);
 		vertices[0]=vertices[1];
 		vertices[1]=NULL;
+		current=vertices[0];
+		getch();
+		cleardevice();
+		printf("Status after %d clip",count+1);
+		line(rect[0].x,rect[0].y,rect[0].x,rect[1].y);
+		line(rect[0].x,rect[1].y,rect[1].x,rect[1].y);
+		line(rect[1].x,rect[1].y,rect[1].x,rect[0].y);
+		line(rect[1].x,rect[0].x,rect[0].x,rect[0].y);
+		do
+		{
+			line(current->x,current->y,current->Next->x,current->Next->y);
+			current=current->Next;
+		}while(current!=vertices[0]);
+		getch();
 	}
 }
 char AssignCode(char a)

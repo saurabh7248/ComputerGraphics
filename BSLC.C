@@ -38,9 +38,18 @@ void main()
 		scanf("%d",&linepts[count].y);
 	}
 	initgraph(&gd,&gm,"C:\\TC\\BGI");
+	printf("Before Clipping");
 	AssignCode();
+	line(linepts[0].x,linepts[0].y,linepts[1].x,linepts[1].y);
+	getch();
 	if(((code&15)&(code>>4))==0)
 	{
+		cleardevice();
+		printf("After clipping");
+		line(rect[0].x,rect[0].y,rect[1].x,rect[0].y);
+		line(rect[1].x,rect[1].y,rect[1].x,rect[0].y);
+		line(rect[1].x,rect[1].y,rect[0].x,rect[1].y);
+		line(rect[0].x,rect[0].y,rect[0].x,rect[1].y);
 		CSLC();
 	}
 	else
@@ -52,7 +61,8 @@ void main()
 }
 void CSLC()
 {
-	int count=0,vpcount=0,vertical=0,horizontal=0,xin,yin;
+	int count=0,vpcount=0,vertical=0,horizontal=0;
+	float xin,yin;
 	float m,im;
 	if(code==0)
 	{
@@ -73,7 +83,7 @@ void CSLC()
 		}
 		else
 		{
-			m=(linepts[0].y-linepts[1].y)/(linepts[0].x-linepts[1].x);
+			m=(float)(linepts[0].y-linepts[1].y)/(linepts[0].x-linepts[1].x);
 			im=1/m;
 		}
 		for(count=0;count<2 &&vpcount<1;count++)
@@ -87,12 +97,14 @@ void CSLC()
 		}
 		for(count=0;count<2 && vpcount<2;count++)
 		{
+			xin=0;
+			yin=0;
 			if(vertical==0)
 			{
 				xin=rect[count].x;
-				yin=linepts[0].y+m*(xin-linepts[0].x);
+				yin=(float)linepts[0].y+m*(xin-linepts[0].x);
 			}
-			if(Between(xin,rect[0].x,rect[1].x) && Between(yin,rect[0].y,rect[1].y))
+			if(Between(xin,rect[0].x,rect[1].x) && Between(yin,rect[0].y,rect[1].y)&& Between(yin,linepts[0].y,linepts[1].y)&& Between(xin,linepts[0].x,linepts[1].x))
 			{
 				vp[vpcount].x=xin;
 				vp[vpcount].y=yin;
@@ -103,9 +115,9 @@ void CSLC()
 			if(horizontal==0)
 			{
 				yin=rect[count].y;
-				xin=linepts[0].x+im*(yin-linepts[0].y);
+				xin=(float)linepts[0].x+im*(yin-linepts[0].y);
 			}
-			if(Between(xin,rect[0].x,rect[1].x) && Between(yin,rect[0].y,rect[1].y))
+			if(Between(xin,rect[0].x,rect[1].x) && Between(yin,rect[0].y,rect[1].y)&& Between(yin,linepts[0].y,linepts[1].y)&& Between(xin,linepts[0].x,linepts[1].x))
 			{
 				vp[vpcount].x=xin;
 				vp[vpcount].y=yin;
